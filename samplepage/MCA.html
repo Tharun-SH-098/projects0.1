@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCA Department</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:linear-gradient(135deg,#0f4c81,#0077b6);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+header h1{
+    font-size:40px;
+}
+
+nav{
+    background:#023e8a;
+    padding:15px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 20px;
+    font-size:18px;
+}
+
+nav a:hover{
+    color:#ffd60a;
+}
+
+.hero{
+    height:450px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    background:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    color:white;
+    text-align:center;
+}
+
+.hero h2{
+    font-size:50px;
+    background:rgba(0,0,0,0.5);
+    padding:10px 20px;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:20px;
+    background:rgba(0,0,0,0.5);
+    padding:10px;
+}
+
+.section{
+    padding:60px 10%;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#023e8a;
+}
+
+.about{
+    text-align:center;
+    line-height:1.8;
+    font-size:18px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#0077b6;
+    margin-bottom:10px;
+}
+
+.faculty{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+
+.faculty-card{
+    background:white;
+    width:250px;
+    padding:20px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.faculty-card img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+}
+
+footer{
+    background:#023e8a;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>MCA Department</h1>
+    <p>Master of Computer Applications</p>
+</header>
+
+<nav>
+    <a href="#about">About</a>
+    <a href="#courses">Courses</a>
+    <a href="#faculty">Faculty</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section class="hero">
+    <h2>Welcome to MCA Department</h2>
+    <p>Empowering Future IT Professionals & Innovators</p>
+</section>
+
+<section class="section" id="about">
+    <h2>About the Department</h2>
+    <div class="about">
+        <p>
+            The Department of Master of Computer Applications (MCA)
+            provides quality education in computer science, software
+            development, artificial intelligence, data science,
+            cloud computing, and cybersecurity. Our mission is to
+            develop skilled professionals capable of solving
+            real-world technological challenges.
+        </p>
+    </div>
+</section>
+
+<section class="section" id="courses">
+    <h2>Programs & Specializations</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Artificial Intelligence</h3>
+            <p>Machine Learning, Deep Learning, NLP and AI Applications.</p>
+        </div>
+
+        <div class="card">
+            <h3>Data Science</h3>
+            <p>Data Analytics, Big Data Technologies and Visualization.</p>
+        </div>
+
+        <div class="card">
+            <h3>Cyber Security</h3>
+            <p>Network Security, Ethical Hacking and Digital Forensics.</p>
+        </div>
+
+        <div class="card">
+            <h3>Cloud Computing</h3>
+            <p>AWS, Azure, DevOps and Cloud Infrastructure.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="faculty">
+    <h2>Faculty Members</h2>
+
+    <div class="faculty">
+
+        <div class="faculty-card">
+            <img src="https://via.placeholder.com/100" alt="">
+            <h3>Dr. Rajesh Kumar</h3>
+            <p>Head of Department</p>
+        </div>
+
+        <div class="faculty-card">
+            <img src="https://via.placeholder.com/100" alt="">
+            <h3>Dr. Priya Sharma</h3>
+            <p>Associate Professor</p>
+        </div>
+
+        <div class="faculty-card">
+            <img src="https://via.placeholder.com/100" alt="">
+            <h3>Mr. Arun Kumar</h3>
+            <p>Assistant Professor</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="contact">
+    <h2>Contact Us</h2>
+
+    <div class="about">
+        <p>
+            📍 MCA Department, XYZ College of Engineering<br><br>
+            📧 mca@xyzcollege.edu<br><br>
+            📞 +91 98765 43210
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 MCA Department | Designed for Academic Purpose</p>
+</footer>
+
+</body>
+</html>
