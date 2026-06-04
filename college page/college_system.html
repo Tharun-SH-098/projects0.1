@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>College Management System</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      color: white;
+      background: #2c3e50;
+      margin: 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    input, select {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-blue { background: #3498db; color: white; }
+    .btn-green { background: #2ecc71; color: white; }
+    .btn-red { background: #e74c3c; color: white; }
+    .btn-purple { background: #9b59b6; color: white; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: white;
+    }
+
+    th {
+      background: #34495e;
+      color: white;
+      padding: 10px;
+    }
+
+    td {
+      text-align: center;
+      padding: 10px;
+    }
+
+    tr:nth-child(even) {
+      background: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🎓 College Management System</h1>
+
+<div class="container">
+
+  <!-- STUDENT FORM -->
+  <div class="card">
+    <h2>➕ Add / Update Student</h2>
+
+    <input type="hidden" id="editIndex">
+
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="text" id="course" placeholder="Course">
+    <input type="number" id="age" placeholder="Age">
+
+    <br>
+
+    <button class="btn-green" onclick="saveStudent()">Save</button>
+    <button class="btn-red" onclick="clearForm()">Clear</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card">
+    <h2>📋 Student List</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Course</th>
+          <th>Age</th>
+          <th>Attendance</th>
+          <th>Fees</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody id="studentTable"></tbody>
+    </table>
+  </div>
+
+  <!-- ATTENDANCE -->
+  <div class="card">
+    <h2>📊 Attendance Module</h2>
+
+    <select id="attIndex"></select>
+    <input type="number" id="attValue" placeholder="Attendance %">
+
+    <button class="btn-blue" onclick="updateAttendance()">Update Attendance</button>
+  </div>
+
+  <!-- FEES -->
+  <div class="card">
+    <h2>💰 Fees Module</h2>
+
+    <select id="feeIndex"></select>
+    <input type="number" id="feeValue" placeholder="Fees Paid">
+
+    <button class="btn-purple" onclick="updateFees()">Update Fees</button>
+  </div>
+
+</div>
+
+<script>
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+/* SAVE */
+function saveStudent() {
+  let name = document.getElementById("name").value;
+  let course = document.getElementById("course").value;
+  let age = document.getElementById("age").value;
+  let editIndex = document.getElementById("editIndex").value;
+
+  if (!name || !course || !age) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  let student = {
+    name,
+    course,
+    age,
+    attendance: 0,
+    fees: 0
+  };
+
+  if (editIndex === "") {
+    students.push(student);
+  } else {
+    student.attendance = students[editIndex].attendance;
+    student.fees = students[editIndex].fees;
+    students[editIndex] = student;
+    document.getElementById("editIndex").value = "";
+  }
+
+  localStorage.setItem("students", JSON.stringify(students));
+  clearForm();
+  render();
+}
+
+/* EDIT */
+function editStudent(i) {
+  let s = students[i];
+  document.getElementById("name").value = s.name;
+  document.getElementById("course").value = s.course;
+  document.getElementById("age").value = s.age;
+  document.getElementById("editIndex").value = i;
+}
+
+/* DELETE */
+function deleteStudent(i) {
+  students.splice(i, 1);
+  localStorage.setItem("students", JSON.stringify(students));
+  render();
+}
+
+/* ATTENDANCE */
+function updateAttendance() {
+  let i = document.getElementById("attIndex").value;
+  let val = document.getElementById("attValue").value;
+
+  students[i].attendance = val;
+  localStorage.setItem("students", JSON.stringify(students));
+  render();
+}
+
+/* FEES */
+function updateFees() {
+  let i = document.getElementById("feeIndex").value;
+  let val = document.getElementById("feeValue").value;
+
+  students[i].fees = val;
+  localStorage.setItem("students", JSON.stringify(students));
+  render();
+}
+
+/* RENDER */
+function render() {
+  let table = document.getElementById("studentTable");
+  table.innerHTML = "";
+
+  let att = document.getElementById("attIndex");
+  let fee = document.getElementById("feeIndex");
+
+  att.innerHTML = "";
+  fee.innerHTML = "";
+
+  students.forEach((s, i) => {
+    table.innerHTML += `
+      <tr>
+        <td>${s.name}</td>
+        <td>${s.course}</td>
+        <td>${s.age}</td>
+        <td>${s.attendance}%</td>
+        <td>₹${s.fees}</td>
+        <td>
+          <button class="btn-blue" onclick="editStudent(${i})">Edit</button>
+          <button class="btn-red" onclick="deleteStudent(${i})">Delete</button>
+        </td>
+      </tr>
+    `;
+
+    att.innerHTML += `<option value="${i}">${s.name}</option>`;
+    fee.innerHTML += `<option value="${i}">${s.name}</option>`;
+  });
+}
+
+/* CLEAR */
+function clearForm() {
+  document.getElementById("name").value = "";
+  document.getElementById("course").value = "";
+  document.getElementById("age").value = "";
+  document.getElementById("editIndex").value = "";
+}
+
+render();
+</script>
+
+</body>
+</html>
